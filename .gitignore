@@ -1,0 +1,12 @@
+# python
+__pycache__/
+
+# Django
+db.sqlite3
+secrets.py
+
+# JavaScript
+secrets.js
+
+# dataset from timer
+data/
