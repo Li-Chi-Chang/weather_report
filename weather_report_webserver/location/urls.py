@@ -6,7 +6,12 @@ urlpatterns = [
 ]
 
 from . import models
-for city in models.locations:
+for city in models.get_locations():
     urlpatterns += [
         path(city, views.location, name=city),
     ]
+
+from django.urls import re_path
+urlpatterns += [
+    re_path('history/.*', views.history, name='history'),
+]
