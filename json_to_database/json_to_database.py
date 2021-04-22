@@ -1,13 +1,14 @@
 from pymongo import MongoClient
-import json
 from os import listdir
 from os.path import join
 from datetime import datetime
 import json
 
+citylist = ['FortWayne','Taipei']
+
 client = MongoClient('localhost:27017')
 weatherdb=client['Weather']
-fortwaynecollect = weatherdb['History']
+Historycollect = weatherdb['History']
 
 def insert_json_data(collect, cityname):
     insertNum = 0
@@ -17,7 +18,7 @@ def insert_json_data(collect, cityname):
             location = json.loads(open(join('data',one_file)).read())['hourly']
             for hourly in location:
                 HourlyData.append(hourly)
-        # print(one_file)
+    
         HourlyData = sorted(HourlyData, key=lambda k: k['dt'])
         hourlydata_2 = []
         for counter, one in enumerate(HourlyData[:-1]):
@@ -55,8 +56,7 @@ def insert_json_data(collect, cityname):
                 print('err!!', exist)
     return insertNum
 
-insertNum = insert_json_data(fortwaynecollect, 'FortWayne')
-print('FortWayne total insert num:', insertNum)
-
-insertNum = insert_json_data(fortwaynecollect, 'Taipei')
-print('Taipei total insert num:', insertNum)
+# mian
+for city in citylist:
+    insertNum = insert_json_data(Historycollect, city)
+    print(city + ' total insert num:', insertNum)
