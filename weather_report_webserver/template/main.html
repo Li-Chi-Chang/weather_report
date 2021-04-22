@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather Histroy</title>
+    </head>
+    <body>
+        <h1>Weather Histroy</h1>
+        <h2>please select a location</h2>
+        {% for location in locations %}
+            <li>
+                <a href="{{ location.link }}">
+                    {{ location.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </body>

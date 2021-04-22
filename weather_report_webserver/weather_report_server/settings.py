@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'location.apps.LocationConfig',
 ]
 
 MIDDLEWARE = [
@@ -53,10 +54,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'weather_report_server.urls'
 
+from os.path import join
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [join(BASE_DIR,'template').replace('\\', '/'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
