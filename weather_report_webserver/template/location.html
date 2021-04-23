@@ -6,15 +6,17 @@
     <body>
         <h1>{{ location }}</h1>
         <h2>Current weather</h2>
-        <h4>Current time: {{  date  }} {{  time  }}</h4>
+        <h4>Current Local time: {{  date  }} {{  time  }}</h4>
         <h4>Temp: {{  temp_in_F  }} <span>&#176;</span>F ( {{  temp_in_C  }} <span>&#176;</span>C / {{  temp_in_K  }} <span>&#176;</span>K)</h4>
         <h4>Feel like: {{  feels_like_in_F  }} <span>&#176;</span>F ( {{  feels_like_in_C  }} <span>&#176;</span>C / {{  feels_like_in_K  }} <span>&#176;</span>K)</h4>
         <h4>Humidity: {{  humidity  }}</h4>
         <h4>Wind speed: {{  wind_speed  }}</h4>
 
-        <h2>Weather Histroy View</h2>
+        <h2>Weather Histroy View ({{  history_date_from  }} ~ {{  history_date_to  }})</h2>
         <h4>Highest temp: {{  htemp_in_F  }} <span>&#176;</span>F ( {{  htemp_in_C  }} <span>&#176;</span>C / {{  htemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  htemp_id  }}">occur here</a></h4>
         <h4>Lowest temp: {{  ltemp_in_F  }} <span>&#176;</span>F ( {{  ltemp_in_C  }} <span>&#176;</span>C / {{  ltemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  ltemp_id  }}">occur here</a></h4>
+
+        <h4>Average temp: {{  avgtemp_in_F  }} <span>&#176;</span>F ( {{  avgtemp_in_C  }} <span>&#176;</span>C / {{  avgtemp_in_K  }} <span>&#176;</span>K)</h4>
 
         <a href="/">Back to main</a>
     </body>

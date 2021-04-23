@@ -32,8 +32,6 @@ def location(request):
     current_weather = json.loads(requests.get('https://api.openweathermap.org/data/2.5/weather?lat='+str(cityinfo['lat'])+'&lon='+str(cityinfo['lon'])+'&appid='+secrets.getAppId()).text)
     time = current_weather['dt'] + current_weather['timezone']
     date = datetime.utcfromtimestamp(time)
-    print(date)
-    
 
     history_info = models.get_history_info(city)
     return render(request, 'location.html', {
@@ -49,12 +47,19 @@ def location(request):
         'humidity': current_weather['main']['humidity'],
         'wind_speed': current_weather['wind']['speed'],
 
+        'history_date_from': history_info['history_from'],
+        'history_date_to': history_info['history_to'],
+
         'htemp_in_K': round(history_info['hightemp'],2),
         'htemp_in_C': round(history_info['hightemp'] - 273.15,2),
         'htemp_in_F': round((history_info['hightemp']*1.8) - 459.67,2),
         'ltemp_in_K': round(history_info['lowtemp'],2),
         'ltemp_in_C': round(history_info['lowtemp'] - 273.15,2),
         'ltemp_in_F': round((history_info['lowtemp']*1.8) - 459.67,2),
+
+        'avgtemp_in_K': round(history_info['avgtemp'],2),
+        'avgtemp_in_C': round(history_info['avgtemp'] - 273.15,2),
+        'avgtemp_in_F': round((history_info['avgtemp']*1.8) - 459.67,2),
 
         'ltemp_id':history_info['lowtemp_id'],
         'htemp_id':history_info['hightemp_id'],
@@ -85,4 +90,12 @@ def history(request):
         'wind_speed': record['wind_speed'],
         'description_main': record['description_main'],
         'description_detail': record['description_detail'],
+    })
+
+def search(request):
+    from django.shortcuts import render
+    from . import models
+    descriptions = models.get_description_list()
+    return render(request, 'search.html',{
+        'description_main_list': descriptions,
     })

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search - Weather Histroy</title>
+    </head>
+    <body>
+        <h1>Search</h1>
+        <h2>Please fill out your bounds, or left blank if you don't need it.</h2>
+        <h4>Local Time: <input type="datetime-local" id="query_time_from"> ~ <input type="datetime-local" id="query_time_to"></h4>
+
+        <h4>Temp in <span>&#176;</span>F: <input type="number" id="query_temp_from"> ~ <input type="number" id="query_temp_to"></h4>
+        <h4>Feel like temp in <span>&#176;</span>F: <input type="number" id="query_feellike_from"> ~ <input type="number" id="query_feellike_to"></h4>
+        <h4>Pressure: <input type="number" id="query_pressure_from"> ~ <input type="number" id="query_pressure_to"></h4>
+        <h4>Dew point: <input type="number" id="query_dew_point_from"> ~ <input type="number" id="query_dew_point_to"></h4>
+        <h4>Humidity: <input type="number" id="query_humidity_from"> ~ <input type="number" id="query_humidity_to"></h4>
+        <h4>Wind speed: <input type="number" id="query_wind_speed_from"> ~ <input type="number" id="query_wind_speed_to"></h4>
+        
+        <h4>Description: <select id='query_description_detail'>
+            {% for description_main in description_main_list %}
+                <optgroup label="{{  description_main.name  }}">
+                    {% for description_detail in description_main.list %}
+                        <option value="{{ description_detail.id }}">{{ description_detail.description }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select></h4>
+
+        <h4 id='result'></h4>
+        <a href="/">Back to main</a>
+    </body>

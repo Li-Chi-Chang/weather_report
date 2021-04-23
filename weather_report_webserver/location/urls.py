@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.main, name='video_view'),
+    path('', views.main, name='main'),
 ]
 
 from . import models
@@ -14,4 +14,8 @@ for city in models.get_locations():
 from django.urls import re_path
 urlpatterns += [
     re_path('history/.*', views.history, name='history'),
+]
+
+urlpatterns += [
+    path('search', views.search, name='search'),
 ]
