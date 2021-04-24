@@ -111,4 +111,31 @@ def search_post(request):
     return render(request, 'searchback.html',{
         'records':result['records'],
 
+        'htemp_in_K':round(result['temp'][0]['temp'],2),
+        'htemp_in_C':round(result['temp'][0]['temp'] - 273.15,2),
+        'htemp_in_F':round((result['temp'][0]['temp']*1.8) - 459.67,2),
+        'htemp_id':result['temp'][0]['_id'],
+
+        'ltemp_in_K':round(result['temp'][1]['temp'],2),
+        'ltemp_in_C':round(result['temp'][1]['temp'] - 273.15,2),
+        'ltemp_in_F':round((result['temp'][1]['temp']*1.8) - 459.67,2),
+        'ltemp_id':result['temp'][1]['_id'],
+
+        'avgtemp_in_K': round(result['avg']['temp'],2),
+        'avgtemp_in_C': round(result['avg']['temp'] - 273.15,2),
+        'avgtemp_in_F': round((result['avg']['temp']*1.8) - 459.67,2),
+
+        'hftemp_in_K':round(result['feels_like'][0]['temp'],2),
+        'hftemp_in_C':round(result['feels_like'][0]['temp'] - 273.15,2),
+        'hftemp_in_F':round((result['feels_like'][0]['temp']*1.8) - 459.67,2),
+        'hftemp_id':result['feels_like'][0]['_id'],
+
+        'lftemp_in_K':round(result['feels_like'][1]['temp'],2),
+        'lftemp_in_C':round(result['feels_like'][1]['temp'] - 273.15,2),
+        'lftemp_in_F':round((result['feels_like'][1]['temp']*1.8) - 459.67,2),
+        'lftemp_id':result['feels_like'][1]['_id'],
+
+        'avgftemp_in_K': round(result['avg']['feels_like'],2),
+        'avgftemp_in_C': round(result['avg']['feels_like'] - 273.15,2),
+        'avgftemp_in_F': round((result['avg']['feels_like']*1.8) - 459.67,2),
     })

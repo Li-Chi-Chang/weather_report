@@ -99,6 +99,14 @@ def get_query_from_data(post_data):
             result_links.append({'link':'/history/' + str(onedata['_id']),'name':onedata['location'] + ' ' + str(onedata['month']) + '/' + str(onedata['day']) + '/' + str(onedata['year']) + ' ' + str(onedata['hour']) + ':00'})
     except StopIteration:
         pass
+    highrealtemp = collect.find_one(query,{'temp':1},sort=[('temp',-1)])
+    lowrealtemp = collect.find_one(query,{'temp':1},sort=[('temp',1)])
+    highfeeltemp = collect.find_one(query,{'temp':1},sort=[('feels_like',-1)])
+    lowfeeltemp = collect.find_one(query,{'temp':1},sort=[('feels_like',1)])
+    avg = collect.aggregate([
+        {'$match':query},
+        {'$group': {'_id':'', 'temp': {'$avg':'$temp'}, 'feels_like': {'$avg':'$feels_like'}}}
+    ]).next()
 
-    return {'records':result_links}
+    return {'records':result_links,'temp':[highrealtemp,lowrealtemp],'feels_like':[highfeeltemp,lowfeeltemp], 'avg':avg}
     

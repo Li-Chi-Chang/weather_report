@@ -1,10 +1,12 @@
 <div>
-    <h4>Average temp</h4>
-    <h4>Max temp</h4>
-    <h4>Min temp</h4>
-    <h4>Average feel like temp</h4>
-    <h4>Max feel like temp</h4>
-    <h4>Min feel like temp</h4>
+    <h4>Highest temp: {{  htemp_in_F  }} <span>&#176;</span>F ( {{  htemp_in_C  }} <span>&#176;</span>C / {{  htemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  htemp_id  }}">occur here</a></h4>
+    <h4>Lowest temp: {{  ltemp_in_F  }} <span>&#176;</span>F ( {{  ltemp_in_C  }} <span>&#176;</span>C / {{  ltemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  ltemp_id  }}">occur here</a></h4>
+    <h4>Average temp: {{  avgtemp_in_F  }} <span>&#176;</span>F ( {{  avgtemp_in_C  }} <span>&#176;</span>C / {{  avgtemp_in_K  }} <span>&#176;</span>K)</h4>
+
+    <h4>Highest feel like temp: {{  hftemp_in_F  }} <span>&#176;</span>F ( {{  hftemp_in_C  }} <span>&#176;</span>C / {{  hftemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  hftemp_id  }}">occur here</a></h4>
+    <h4>Lowest feel like temp: {{  lftemp_in_F  }} <span>&#176;</span>F ( {{  lftemp_in_C  }} <span>&#176;</span>C / {{  lftemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  lftemp_id  }}">occur here</a></h4>
+    <h4>Average feel like temp: {{  avgftemp_in_F  }} <span>&#176;</span>F ( {{  avgftemp_in_C  }} <span>&#176;</span>C / {{  avgftemp_in_K  }} <span>&#176;</span>K)</h4>
+    
     <h4>Records</h4>
     {% for record in records %}
     <h5>
