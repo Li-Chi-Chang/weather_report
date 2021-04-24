@@ -96,6 +96,10 @@ def search(request):
     from django.shortcuts import render
     from . import models
     descriptions = models.get_description_list()
+    locations = ['empty']
+    for location in models.get_locations():
+        locations.append(location)
     return render(request, 'search.html',{
+        'location_list': locations,
         'description_main_list': descriptions,
     })
