@@ -1,0 +1,14 @@
+<div>
+    <h4>Average temp</h4>
+    <h4>Max temp</h4>
+    <h4>Min temp</h4>
+    <h4>Average feel like temp</h4>
+    <h4>Max feel like temp</h4>
+    <h4>Min feel like temp</h4>
+    <h4>Records</h4>
+    {% for record in records %}
+    <h5>
+        <a href="{{  record.link  }}">{{  record.name  }}</a>
+    </h5>
+    {% endfor %}
+</div>

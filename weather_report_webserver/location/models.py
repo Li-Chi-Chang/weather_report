@@ -1,5 +1,6 @@
 from django.db import models
 from bson.objectid import ObjectId
+from datetime import datetime
 
 # Create your models here.
 
@@ -53,7 +54,7 @@ def get_description_list():
     for main in description_main_list:
         description_detail_list.append({'name':main})
         description_detail_list[-1]['list'] = []
-    description_detail_list[0]['list'].append({'id':0, 'description':'empty'})
+    description_detail_list[0]['list'].append({'id':'', 'description':'empty'})
 
     listcursor = collect.find(sort=[('_id',1)])
     try:
@@ -65,3 +66,39 @@ def get_description_list():
     except StopIteration:
         pass
     return description_detail_list
+
+def get_query_from_data_helper_onedata_from_to(query, from_info,to_info, query_column, mytype):
+    if from_info != '' or to_info != '':
+        query[query_column] = {}
+        if from_info != '':
+            query[query_column]['$gt'] = mytype(from_info)
+        if to_info != '':
+            query[query_column]['$lt'] = mytype(to_info)
+
+def get_query_from_data_helper_dt_function(date_in):
+    return int(datetime.timestamp(datetime.strptime(date_in,'%Y-%m-%dT%H:%M')))
+
+def get_query_from_data(post_data):
+    query = {}
+    if post_data['query_location'][0] != '':
+        query['location'] = post_data['query_location'][0]
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_time_from'][0],post_data['query_time_to'][0],'dt',get_query_from_data_helper_dt_function)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_temp_from'][0],post_data['query_temp_to'][0],'temp',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_feellike_from'][0],post_data['query_feellike_to'][0],'feels_like',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_pressure_from'][0],post_data['query_pressure_to'][0],'pressure',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_humidity_from'][0],post_data['query_humidity_to'][0],'humidity',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_dew_point_from'][0],post_data['query_dew_point_to'][0],'dew_point',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_wind_speed_from'][0],post_data['query_wind_speed_to'][0],'wind_speed',int)
+    get_query_from_data_helper_onedata_from_to(query,post_data['query_description_detail'][0],post_data['query_description_detail'][0],'description_id',int)
+    collect = MongoClient('localhost:27017')['Weather']['History']
+    results = collect.find(query,{'location':1, 'month':1, 'day':1, 'year':1, 'hour':1},sort=[('location',1),('dt',1)])
+    result_links = []
+    try:
+        while True:
+            onedata = results.next()
+            result_links.append({'link':'/history/' + str(onedata['_id']),'name':onedata['location'] + ' ' + str(onedata['month']) + '/' + str(onedata['day']) + '/' + str(onedata['year']) + ' ' + str(onedata['hour']) + ':00'})
+    except StopIteration:
+        pass
+
+    return {'records':result_links}
+    

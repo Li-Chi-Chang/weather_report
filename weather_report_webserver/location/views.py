@@ -96,10 +96,19 @@ def search(request):
     from django.shortcuts import render
     from . import models
     descriptions = models.get_description_list()
-    locations = ['empty']
+    locations = [{'name':'empty', 'value':''}]
     for location in models.get_locations():
-        locations.append(location)
+        locations.append({'name':location, 'value':location})
     return render(request, 'search.html',{
         'location_list': locations,
         'description_main_list': descriptions,
+    })
+
+def search_post(request):
+    from django.shortcuts import render
+    from . import models
+    result = models.get_query_from_data(dict(request.POST))
+    return render(request, 'searchback.html',{
+        'records':result['records'],
+
     })

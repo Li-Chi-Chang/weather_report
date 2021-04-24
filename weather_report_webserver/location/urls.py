@@ -18,4 +18,5 @@ urlpatterns += [
 
 urlpatterns += [
     path('search', views.search, name='search'),
+    path('search_post', views.search_post, name='search_post'),
 ]
