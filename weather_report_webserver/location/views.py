@@ -63,6 +63,11 @@ def location(request):
 
         'ltemp_id':history_info['lowtemp_id'],
         'htemp_id':history_info['hightemp_id'],
+
+        'avgtemp_in_Spring': history_info['avgtemp_in_Spring'],
+        'avgtemp_in_Summer': history_info['avgtemp_in_Summer'],
+        'avgtemp_in_Fall': history_info['avgtemp_in_Fall'],
+        'avgtemp_in_Winter': history_info['avgtemp_in_Winter'],
     })
 
 def history(request):

@@ -44,6 +44,43 @@ def get_history_info(location_name):
     result['avgtemp'] = avgtemp['temp']
     result['lowtemp_id'] = lowtemp['_id']
     result['hightemp_id'] = hightemp['_id']
+    spring = None
+    try:
+        spring = collect.aggregate([
+            {'$match':{'location':location_name, 'month':{'$gte':3,'$lte':5}}},
+            {'$group': {'_id':'', 'temp': {'$avg':'$temp'}}}
+        ]).next()['temp']
+    except:
+        pass
+    summer = None
+    try:
+        summer = collect.aggregate([
+            {'$match':{'location':location_name, 'month':{'$gte':6,'$lte':8}}},
+            {'$group': {'_id':'', 'temp': {'$avg':'$temp'}}}
+        ]).next()['temp']
+    except:
+        pass
+    fall = None
+    try:
+        fall = collect.aggregate([
+            {'$match':{'location':location_name, 'month':{'$gte':9,'$lte':11}}},
+            {'$group': {'_id':'', 'temp': {'$avg':'$temp'}}}
+        ]).next()['temp']
+    except:
+        pass
+    winter = None
+    try:
+        spring = collect.aggregate([
+            {'$match':{'location':location_name, 'month':{'$or':[{'$gte':12}, {'$lte':2}]}}},
+            {'$group': {'_id':'', 'temp': {'$avg':'$temp'}}}
+        ]).next()['temp']
+    except:
+        pass
+
+    result['avgtemp_in_Spring'] = round((spring*1.8) - 459.67,2) if spring is not None else 'no data'
+    result['avgtemp_in_Summer'] = round((summer*1.8) - 459.67,2) if summer is not None else 'no data'
+    result['avgtemp_in_Fall'] = round((fall*1.8) - 459.67,2) if fall is not None else 'no data'
+    result['avgtemp_in_Winter'] = round((winter*1.8) - 459.67,2) if winter is not None else 'no data'
     return result
 
 def get_description_list():
@@ -71,9 +108,9 @@ def get_query_from_data_helper_onedata_from_to(query, from_info,to_info, query_c
     if from_info != '' or to_info != '':
         query[query_column] = {}
         if from_info != '':
-            query[query_column]['$gt'] = mytype(from_info)
+            query[query_column]['$gte'] = mytype(from_info)
         if to_info != '':
-            query[query_column]['$lt'] = mytype(to_info)
+            query[query_column]['$lte'] = mytype(to_info)
 
 def get_query_from_data_helper_dt_function(date_in):
     return int(datetime.timestamp(datetime.strptime(date_in,'%Y-%m-%dT%H:%M')))
