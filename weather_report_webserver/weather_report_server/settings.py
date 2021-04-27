@@ -27,7 +27,7 @@ SECRET_KEY = getSecret()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10b95d561324.ngrok.io']
+ALLOWED_HOSTS = ['10b95d561324.ngrok.io','127.0.0.1']
 
 
 # Application definition

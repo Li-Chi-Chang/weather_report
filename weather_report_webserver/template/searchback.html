@@ -7,7 +7,7 @@
     <h4>Lowest feel like temp: {{  lftemp_in_F  }} <span>&#176;</span>F ( {{  lftemp_in_C  }} <span>&#176;</span>C / {{  lftemp_in_K  }} <span>&#176;</span>K) <a href="/history/{{  lftemp_id  }}">occur here</a></h4>
     <h4>Average feel like temp: {{  avgftemp_in_F  }} <span>&#176;</span>F ( {{  avgftemp_in_C  }} <span>&#176;</span>C / {{  avgftemp_in_K  }} <span>&#176;</span>K)</h4>
     
-    <h4>Records</h4>
+    <h4>{{  records_num  }} Records</h4>
     {% for record in records %}
     <h5>
         <a href="{{  record.link  }}">{{  record.name  }}</a>

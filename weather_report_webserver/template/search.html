@@ -5,6 +5,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script>
             function sendquery() {
+                document.getElementById('result').innerHTML = '<h4>No Data</h4>'
                 $.ajax({
                     url: '/search_post',
                     type: 'POST',
@@ -44,8 +45,8 @@
         </select></h4>
         <h4>Local Time: <input type="datetime-local"  id="query_time_from"> ~ <input type="datetime-local"  id="query_time_to"></h4>
 
-        <h4>Temp in <span>&#176;</span>F: <input type="number"  id="query_temp_from"> ~ <input type="number"  id="query_temp_to"></h4>
-        <h4>Feel like temp in <span>&#176;</span>F: <input type="number"  id="query_feellike_from"> ~ <input type="number"  id="query_feellike_to"></h4>
+        <h4>Temp in <span>&#176;</span>K: <input type="number"  id="query_temp_from"> ~ <input type="number"  id="query_temp_to"></h4>
+        <h4>Feel like temp in <span>&#176;</span>K: <input type="number"  id="query_feellike_from"> ~ <input type="number"  id="query_feellike_to"></h4>
         <h4>Pressure: <input type="number"  id="query_pressure_from"> ~ <input type="number"  id="query_pressure_to"></h4>
         <h4>Dew point: <input type="number"  id="query_dew_point_from"> ~ <input type="number"  id="query_dew_point_to"></h4>
         <h4>Humidity: <input type="number"  id="query_humidity_from"> ~ <input type="number"  id="query_humidity_to"></h4>

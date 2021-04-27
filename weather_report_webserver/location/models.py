@@ -138,12 +138,16 @@ def get_query_from_data(post_data):
         pass
     highrealtemp = collect.find_one(query,{'temp':1},sort=[('temp',-1)])
     lowrealtemp = collect.find_one(query,{'temp':1},sort=[('temp',1)])
-    highfeeltemp = collect.find_one(query,{'temp':1},sort=[('feels_like',-1)])
-    lowfeeltemp = collect.find_one(query,{'temp':1},sort=[('feels_like',1)])
-    avg = collect.aggregate([
-        {'$match':query},
-        {'$group': {'_id':'', 'temp': {'$avg':'$temp'}, 'feels_like': {'$avg':'$feels_like'}}}
-    ]).next()
-
-    return {'records':result_links,'temp':[highrealtemp,lowrealtemp],'feels_like':[highfeeltemp,lowfeeltemp], 'avg':avg}
+    highfeeltemp = collect.find_one(query,{'feels_like':1},sort=[('feels_like',-1)])
+    lowfeeltemp = collect.find_one(query,{'feels_like':1},sort=[('feels_like',1)])
+    avg = {'temp': 0, 'feels_like':0}
+    try:
+        avg = collect.aggregate([
+            {'$match':query},
+            {'$group': {'_id':'', 'temp': {'$avg':'$temp'}, 'feels_like': {'$avg':'$feels_like'}}}
+        ]).next()
+    except StopIteration:
+        pass
+    
+    return {'records_num':len(result_links),'records':result_links,'temp':[highrealtemp,lowrealtemp],'feels_like':[highfeeltemp,lowfeeltemp], 'avg':avg}
     
