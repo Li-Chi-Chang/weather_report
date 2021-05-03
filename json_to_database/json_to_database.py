@@ -10,12 +10,14 @@ client = MongoClient('localhost:27017')
 weatherdb=client['Weather']
 Historycollect = weatherdb['History']
 
+data_dir = 'sampledata'
+
 def insert_json_data(collect, cityname):
     insertNum = 0
-    for one_file in listdir('data'):
+    for one_file in listdir(data_dir):
         HourlyData = []
         if(cityname in one_file):
-            location = json.loads(open(join('data',one_file)).read())['hourly']
+            location = json.loads(open(join(data_dir,one_file)).read())['hourly']
             for hourly in location:
                 HourlyData.append(hourly)
     
