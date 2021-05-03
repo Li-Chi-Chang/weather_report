@@ -7,3 +7,6 @@ This function can get one or multiple weather files in json format.
 ## Json to Database
 
 This part put weather files into database
+
+## final note
+Please ref my final report in doc/
